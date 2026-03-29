@@ -1,8 +1,8 @@
 # Listas
 print("\n-- LISTAS CREADAS --: \n")
 
-lista = [1,2,3,4]
-lista_2 = [98,99,19]
+lista = [1,2, 4, 9,3,4]
+lista_2 = [999,99,19]
 
 print(lista)
 print(lista_2)
@@ -54,6 +54,19 @@ print(lista)
 
 print(f"\nMetodo pop, elimina el elemento del indice dado:")
 lista.pop(4)
+print(lista)
+
+print("\n -- ORDENAMIENTO DE LISTAS -- ")
+print(f"\nMetodo sorted devuelve una nueva lista ordenada, no modifica la original:")
+lista_3 = sorted(lista)
+print(lista_3)
+
+print(f"\nMetodo sort, ordena la lista original:")
+lista.sort()
+print(lista)
+
+print(f"\nMetodo reverse, ordena la lista en inversa:")
+lista.reverse()
 print(lista)
 
 # metodo clear
