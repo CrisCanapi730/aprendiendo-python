@@ -19,3 +19,29 @@ print(frutas.split(" ", 1))
 print("-".join(verduras))
 print(",+".join(verduras))
 
+# -- VALIDACIONES --
+print("/n -- VALIDACIONES --")
+print("abc".isalpha())
+print("45".isdigit())
+print("45a".isalnum())
+print(" ".isspace())
+print("HOLA".isupper())
+print("minus".islower())
+print("Hola Mundo".istitle())
+
+# -- RELLENO Y ALINEACION --
+print("\n-- -- RELLENO Y ALINEACION --\n")
+print("5".zfill(4))
+print("hola".ljust(5))
+print("hola".rjust(10))
+print("hola".center(5))
+print("hola".center(10,"*"))
+
+# -- SLICING --
+print("\n-- SLICING --\n")
+n = "mundo"
+print(n[0])
+print(n[-1])
+print(n[:3])
+print(n[2:])
+print(n[::-1])
