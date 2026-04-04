@@ -1,0 +1,531 @@
+# 🐍 Guía Maestra de Estructuras de Datos en Python
+
+> Teoría completa de Listas, Tuplas, Strings y Diccionarios — de cero a experto.
+
+---
+
+## 📋 Tabla de Contenidos
+
+- [Listas](#-listas)
+- [Tuplas](#-tuplas)
+- [Strings](#-strings)
+- [Diccionarios](#-diccionarios)
+- [Comparación General](#-comparación-general)
+
+---
+
+## 📋 Listas
+
+Una lista es una colección **ordenada y mutable**. Úsala cuando necesitas una secuencia de elementos que van a crecer, reducirse o modificarse.
+
+| Propiedad | Valor |
+|---|---|
+| ¿Mutable? | ✅ Sí |
+| ¿Ordenada? | ✅ Sí |
+| ¿Duplicados? | ✅ Sí |
+| ¿Indexada? | ✅ Por posición numérica |
+
+### Creación
+
+```python
+lista = [1, 2, 3]
+lista = ["a", 1, True]    # puede mezclar tipos
+lista = []                 # vacía
+lista = list("hola")       # ['h','o','l','a']
+lista = list(range(5))     # [0,1,2,3,4]
+```
+
+### Adición
+
+```python
+lista.append(5)            # agrega al final
+lista.insert(0, 99)        # inserta en índice dado
+lista.extend([6, 7, 8])    # agrega varios de golpe
+```
+
+### Eliminación
+
+```python
+lista.remove(5)    # elimina la PRIMERA ocurrencia del valor
+lista.pop()        # elimina y retorna el ÚLTIMO elemento
+lista.pop(2)       # elimina y retorna el del índice 2
+lista.clear()      # vacía toda la lista
+del lista[0]       # elimina por índice sin retornar
+```
+
+### Consulta
+
+```python
+lista.count(5)     # cuántas veces aparece el 5
+lista.index(5)     # índice de la primera aparición
+len(lista)         # cantidad de elementos
+5 in lista         # True/False — ¿existe?
+```
+
+### Ordenamiento
+
+```python
+lista.sort()               # modifica la lista original
+lista.sort(reverse=True)   # de mayor a menor
+lista.reverse()            # invierte el orden actual
+nueva = sorted(lista)      # retorna NUEVA lista, no modifica
+```
+
+> ⚠️ **Trampa clásica:** `.sort()` modifica la original y retorna `None`. `sorted()` no toca la original y retorna una nueva lista.
+
+### Slicing
+
+```python
+t = [10, 20, 30, 40, 50]
+
+t[1:3]     # [20, 30]          — del índice 1 al 2
+t[:3]      # [10, 20, 30]      — desde el inicio hasta el 2
+t[2:]      # [30, 40, 50]      — desde el 2 hasta el final
+t[::-1]    # [50, 40, 30, 20, 10] — al revés
+```
+
+### Copia — trampa clásica
+
+```python
+a = [1, 2, 3]
+b = a           # ❌ NO es copia — ambas apuntan al mismo objeto
+b.append(4)     # modifica AMBAS
+
+b = a.copy()    # ✅ copia real
+b = a[:]        # ✅ también es copia real
+b = list(a)     # ✅ también es copia real
+```
+
+### Recorrer con for
+
+```python
+# Básico
+for elemento in lista:
+    print(elemento)
+
+# Con índice
+for i in range(len(lista)):
+    print(i, lista[i])
+
+# Hasta el penúltimo — útil para comparar lista[i] con lista[i+1]
+for i in range(len(lista) - 1):
+    print(lista[i], lista[i + 1])
+
+# Con índice y valor a la vez
+for i, valor in enumerate(lista):
+    print(i, valor)
+```
+
+### List Comprehension
+
+```python
+# Forma larga
+cuadrados = []
+for x in range(5):
+    cuadrados.append(x**2)
+
+# Forma corta
+cuadrados = [x**2 for x in range(5)]
+
+# Con condición
+pares = [x for x in range(10) if x % 2 == 0]
+```
+
+---
+
+## 📦 Tuplas
+
+Una tupla es una colección **ordenada e inmutable**. Úsala cuando los datos no deben cambiar: coordenadas, configuraciones fijas, o para retornar múltiples valores desde una función.
+
+| Propiedad | Valor |
+|---|---|
+| ¿Mutable? | ❌ No |
+| ¿Ordenada? | ✅ Sí |
+| ¿Duplicados? | ✅ Sí |
+| ¿Métodos? | Solo 2: `.count()` y `.index()` |
+
+### Creación — la coma es lo que importa
+
+```python
+t = (1, 2, 3)
+t = 1, 2, 3        # sin paréntesis, igual es tupla
+t = (1,)           # ⚠️ UN elemento — la coma es OBLIGATORIA
+t = (1)            # ❌ esto es solo el número 1, NO una tupla
+t = tuple([1,2,3]) # convertir lista a tupla
+```
+
+### Sus únicos 2 métodos
+
+```python
+t = (1, 2, 2, 3, 2)
+
+t.count(2)     # 3 — cuántas veces aparece
+t.index(3)     # 3 — índice de la primera aparición
+```
+
+### Acceso y Slicing — igual que listas
+
+```python
+t = (10, 20, 30, 40, 50)
+
+t[0]       # 10
+t[-1]      # 50
+t[1:3]     # (20, 30)
+t[::-1]    # (50, 40, 30, 20, 10)
+```
+
+### Lo que NO puedes hacer
+
+```python
+t = (1, 2, 3)
+
+t[0] = 99      # 💥 TypeError — inmutable
+t.append(4)    # 💥 no existe este método
+t.remove(1)    # 💥 no existe este método
+```
+
+### Desestructuración — el superpoder
+
+```python
+# Asignar múltiples variables de golpe
+punto = (10, 20)
+x, y = punto           # x=10, y=20
+
+persona = ("Luis", 25, "La Paz")
+nombre, edad, ciudad = persona
+
+# En un for — desestructuración automática
+pares = [(1, "a"), (2, "b"), (3, "c")]
+for numero, letra in pares:
+    print(numero, letra)
+
+# Swap sin variable temporal
+a, b = 5, 10
+a, b = b, a    # a=10, b=5
+```
+
+### Retornar múltiples valores desde una función
+
+```python
+def estadisticas(lista):
+    return min(lista), max(lista), sum(lista)   # retorna tupla
+
+# Guardas la tupla completa
+resultado = estadisticas([3, 1, 9, 2])
+print(resultado)    # (1, 9, 15)
+
+# O desestructuras directo
+minimo, maximo, total = estadisticas([3, 1, 9, 2])
+```
+
+### Tuplas como claves de diccionario
+
+```python
+# Las tuplas SÍ pueden ser claves — son inmutables (hashables)
+mapa = {}
+mapa[(0, 0)] = "inicio"
+mapa[(3, 4)] = "tesoro"
+
+# Las listas NO pueden ser claves
+mapa[[0, 0]] = "x"    # 💥 TypeError: unhashable type: 'list'
+```
+
+---
+
+## 🔤 Strings
+
+Un string es una cadena de texto **inmutable**. Cada operación crea un nuevo string, no modifica el original.
+
+| Propiedad | Valor |
+|---|---|
+| ¿Mutable? | ❌ No — cada operación crea uno nuevo |
+| ¿Ordenada? | ✅ Sí — cada carácter tiene su índice |
+| ¿Indexable? | ✅ Sí — como lista de caracteres |
+| ¿Iterable? | ✅ Sí — puedes hacer `for letra in s` |
+
+### Acceso y Slicing
+
+```python
+s = "python"
+
+s[0]       # "p"
+s[-1]      # "n"
+s[0:3]     # "pyt"
+s[::-1]    # "nohtyp" — invertir el string
+len(s)     # 6
+```
+
+### Búsqueda
+
+```python
+s = "Hola Mundo"
+
+s.find("Mundo")       # 5 — índice donde empieza, -1 si no existe
+s.index("Mundo")      # 5 — igual pero lanza error si no existe
+s.count("o")          # 2 — cuántas veces aparece
+s.startswith("Ho")    # True
+s.endswith("do")      # True
+"Mundo" in s          # True — forma más pytonica
+```
+
+### Transformación
+
+```python
+s = "hola mundo"
+
+s.upper()                    # "HOLA MUNDO"
+s.lower()                    # "hola mundo"
+s.capitalize()               # "Hola mundo" — solo primera letra
+s.title()                    # "Hola Mundo" — primera letra de cada palabra
+s.swapcase()                 # invierte mayúsculas y minúsculas
+s.replace("hola", "bye")     # "bye mundo"
+s.strip()                    # quita espacios al inicio y fin
+s.lstrip()                   # quita solo a la izquierda
+s.rstrip()                   # quita solo a la derecha
+```
+
+### Split y Join — los más importantes
+
+```python
+# split: string → lista
+"a,b,c".split(",")         # ["a", "b", "c"]
+"hola mundo".split()       # ["hola", "mundo"]
+"a,b,c".split(",", 1)      # ["a", "b,c"] — máximo 1 corte
+
+# join: lista → string
+",".join(["a", "b", "c"])  # "a,b,c"
+" ".join(["hola", "mundo"]) # "hola mundo"
+
+# Son opuestos — se cancelan entre sí
+original = "1,2,3"
+",".join(original.split(",")) == original   # True
+
+# ⚠️ join solo acepta listas de strings
+",".join([1, 2, 3])                         # 💥 TypeError
+",".join([str(x) for x in [1, 2, 3]])      # ✅ "1,2,3"
+```
+
+### Verificación — retornan True/False
+
+```python
+"123".isdigit()      # True — solo números
+"abc".isalpha()      # True — solo letras
+"abc1".isalnum()     # True — letras y números
+"   ".isspace()      # True — solo espacios
+"HOLA".isupper()     # True
+"hola".islower()     # True
+"Hola Mundo".istitle() # True
+```
+
+### Alineación y Relleno
+
+```python
+"5".zfill(3)           # "005"       — rellena con ceros
+"hola".ljust(10)       # "hola      " — alinea izquierda
+"hola".rjust(10)       # "      hola" — alinea derecha
+"hola".center(10)      # "   hola   " — centra
+"hola".center(10, "-") # "---hola---" — centra con carácter
+```
+
+### Formato
+
+```python
+nombre, edad = "Luis", 25
+
+# f-string — la más usada hoy en día
+f"{nombre} tiene {edad} años"
+
+# .format()
+"{} tiene {} años".format(nombre, edad)
+
+# Con formato numérico
+f"{3.14159:.2f}"    # "3.14" — 2 decimales
+f"{1000:,}"         # "1,000" — separador de miles
+```
+
+> ⚠️ **Importante:** Los strings son inmutables. `s.upper()` no modifica `s`, crea un nuevo string. Siempre guarda el resultado: `s = s.upper()`
+
+---
+
+## 🗂 Diccionarios
+
+Un diccionario almacena pares **clave → valor**. Es mutable y se accede por clave, no por índice numérico.
+
+| Propiedad | Valor |
+|---|---|
+| ¿Mutable? | ✅ Sí |
+| ¿Ordenado? | ✅ Sí (Python 3.7+) |
+| ¿Duplicados? | ❌ No — las claves son únicas |
+| ¿Indexado? | Por clave, no por número |
+
+### Creación
+
+```python
+d = {"nombre": "Luis", "edad": 25}
+d = dict(nombre="Luis", edad=25)
+d = {}                              # vacío
+```
+
+### Acceso — [] vs .get()
+
+```python
+d = {"nombre": "Luis", "edad": 25}
+
+d["nombre"]              # "Luis"
+d["altura"]              # 💥 KeyError — no existe
+d.get("altura")          # None — no rompe
+d.get("altura", 1.70)    # 1.70 — valor por defecto
+```
+
+> ⚠️ Siempre prefiere `.get()` cuando no estás seguro si la clave existe.
+
+### Agregar y Modificar
+
+```python
+d["ciudad"] = "La Paz"       # agrega si no existe
+d["edad"]   = 26             # modifica si ya existe
+d.update({"pais": "Bolivia", "edad": 27})  # varios a la vez
+d.update(ciudad="Lima")      # otra forma
+```
+
+### Eliminar
+
+```python
+del d["ciudad"]          # elimina — error si no existe
+d.pop("ciudad")          # elimina y retorna el valor
+d.pop("x", None)         # si no existe retorna None, no rompe
+d.popitem()              # elimina y retorna el último par
+d.clear()                # vacía todo
+```
+
+### Las 3 vistas
+
+```python
+d = {"a": 1, "b": 2, "c": 3}
+
+d.keys()    # dict_keys(["a", "b", "c"])
+d.values()  # dict_values([1, 2, 3])
+d.items()   # dict_items([("a",1), ("b",2), ("c",3)])
+```
+
+### Recorrer con for — las 3 formas
+
+```python
+d = {"nombre": "Luis", "edad": 25}
+
+# Solo claves
+for clave in d:
+    print(clave)
+
+# Solo valores
+for valor in d.values():
+    print(valor)
+
+# Clave y valor — la más útil
+for clave, valor in d.items():
+    print(f"{clave}: {valor}")
+```
+
+### Verificación
+
+```python
+"nombre" in d       # True  — busca en CLAVES
+"Luis" in d         # False — no busca en valores
+"nombre" not in d   # False
+len(d)              # cantidad de pares
+```
+
+### Patrón de conteo — el más importante en entrevistas
+
+```python
+lista = ["gato", "perro", "gato", "pez", "gato", "perro"]
+conteo = {}
+
+for elemento in lista:
+    conteo[elemento] = conteo.get(elemento, 0) + 1
+
+# {"gato": 3, "perro": 2, "pez": 1}
+```
+
+### Copia
+
+```python
+a = {"x": 1}
+b = a          # ❌ NO es copia — ambas apuntan al mismo objeto
+b = a.copy()   # ✅ copia real
+```
+
+### Dict Comprehension
+
+```python
+cuadrados = {x: x**2 for x in range(5)}
+# {0:0, 1:1, 2:4, 3:9, 4:16}
+
+# Con condición
+pares = {x: x**2 for x in range(10) if x % 2 == 0}
+
+# Invertir claves y valores
+d = {"a": 1, "b": 2}
+invertido = {v: k for k, v in d.items()}
+# {1: "a", 2: "b"}
+```
+
+---
+
+## 🔍 Comparación General
+
+| | Lista | Tupla | String | Diccionario |
+|---|---|---|---|---|
+| Sintaxis | `[1,2,3]` | `(1,2,3)` | `"hola"` | `{"a":1}` |
+| ¿Mutable? | ✅ | ❌ | ❌ | ✅ |
+| ¿Ordenada? | ✅ | ✅ | ✅ | ✅ (3.7+) |
+| ¿Duplicados? | ✅ | ✅ | ✅ | ❌ (claves) |
+| Acceso | `lista[0]` | `t[0]` | `s[0]` | `d["clave"]` |
+| Longitud | `len()` | `len()` | `len()` | `len()` |
+| ¿Es clave de dict? | ❌ | ✅ | ✅ | ❌ |
+| Velocidad | Media | Rápida | — | Rápida (búsqueda) |
+| Cuándo usar | Colección que cambia | Datos fijos / retorno múltiple | Texto | Clave → Valor |
+
+---
+
+## 💡 Patrones más comunes en entrevistas técnicas
+
+```python
+# 1. Contar ocurrencias con diccionario
+conteo = {}
+for x in lista:
+    conteo[x] = conteo.get(x, 0) + 1
+
+# 2. Desestructurar tupla en for
+for clave, valor in diccionario.items():
+    ...
+
+# 3. Recorrer lista comparando elemento con el siguiente
+for i in range(len(lista) - 1):
+    if lista[i] > lista[i + 1]:
+        ...
+
+# 4. Invertir string
+s[::-1]
+
+# 5. Swap de variables con tupla
+a, b = b, a
+
+# 6. Retornar múltiples valores
+def funcion():
+    return valor1, valor2   # retorna tupla automáticamente
+
+# 7. List comprehension con filtro
+resultado = [x for x in lista if condicion(x)]
+
+# 8. Buscar por valor en diccionario
+def buscar_valor(d, objetivo):
+    for clave, valor in d.items():
+        if valor == objetivo:
+            return clave
+    return None
+```
+
+---
+
+*Guía creada para práctica de bootcamp — semana intensiva Python* 🚀
