@@ -1,181 +1,45 @@
-# 📚 Guía Maestra de Estructuras de Datos en Python
+## 🏗️ Estructuras de Datos en Python
 
-### Teoría y práctica de Listas, Tuplas, Strings y Diccionarios — De cero a experto.
+Las estructuras de datos son contenedores que nos permiten organizar y manipular información. Elegir la correcta depende de si necesitas modificar los datos, el orden en que se guardan y cómo deseas acceder a ellos.
 
-En Python, las estructuras de datos son la base para organizar y manipular información de manera eficiente. Comprender sus diferencias y casos de uso permite escribir código más claro, optimizado y profesional.
+### 📋 1. Listas (Lists)
+Son las herramientas más flexibles de Python. Imagínalas como un archivador donde puedes añadir, quitar o cambiar carpetas en cualquier momento.
+* **Naturaleza:** Ordenadas y **mutables** (modificables).
+* **Uso ideal:** Cuando tienes una colección de elementos que cambiará con el tiempo, como una lista de tareas o resultados de un cálculo.
+* **Acceso:** Se llega a cada elemento mediante su posición numérica (índice).
 
------
+### 📦 2. Tuplas (Tuples)
+Son similares a las listas, pero con un "candado". Una vez que se cierran, no se pueden alterar.
+* **Naturaleza:** Ordenadas e **inmutables** (no se pueden cambiar).
+* **Uso ideal:** Para datos que deben permanecer protegidos, como coordenadas geográficas $(x, y)$ o configuraciones fijas del sistema.
+* **Ventaja:** Son más rápidas y consumen menos memoria que las listas.
 
-## 📋 Tabla de Contenidos
+### 🗂️ 3. Diccionarios (Dictionaries)
+Funcionan como un catálogo o una agenda telefónica. En lugar de buscar por posición, buscas por una etiqueta específica.
+* **Naturaleza:** Estructura de **clave-valor** y mutables.
+* **Uso ideal:** Para organizar datos relacionados, como el perfil de un usuario (Nombre: "Ana", Edad: 25, Ciudad: "Madrid").
+* **Acceso:** No usas números de posición, sino la "clave" única para obtener el "valor" asociado.
 
-1.  [Listas](https://www.google.com/search?q=%23-listas-lists)
-2.  [Tuplas](https://www.google.com/search?q=%23-tuplas-tuples)
-3.  [Strings](https://www.google.com/search?q=%23-strings)
-4.  [Diccionarios](https://www.google.com/search?q=%23-diccionarios-dictionaries)
-5.  [⚖️ Comparación General](https://www.google.com/search?q=%23%25EF%25B8%258F-diferencias-clave)
-6.  [💡 Patrones para Entrevistas](https://www.google.com/search?q=%23-patrones-comunes-en-entrevistas-t%C3%A9cnicas)
+### 🔤 4. Cadenas de Texto (Strings)
+Son secuencias de caracteres que representan palabras o mensajes.
+* **Naturaleza:** Ordenadas e **inmutables**. Aunque parezca que las editas, Python crea una copia nueva cada vez que aplicas un cambio.
+* **Uso ideal:** Manejo de cualquier información textual, mensajes al usuario o procesamiento de nombres.
+* **Versatilidad:** Python ofrece herramientas potentes para buscar, limpiar y dar formato al texto de forma sencilla.
 
------
+---
 
-## 📋 Listas (Lists)
+## ⚖️ Cuadro Comparativo
 
-Las listas son colecciones **ordenadas y mutables**. Son dinámicas, permitiendo que sus elementos crezcan, se reduzcan o se modifiquen según sea necesario.
+| Estructura | ¿Se puede modificar? | ¿Importa el orden? | Forma de acceso |
+| :--- | :--- | :--- | :--- |
+| **Lista** | ✅ Sí | ✅ Sí | Posición (Índice) |
+| **Tupla** | ❌ No | ✅ Sí | Posición (Índice) |
+| **Diccionario** | ✅ Sí | ✅ Sí* | Clave única |
+| **String** | ❌ No | ✅ Sí | Posición (Carácter) |
 
-### 🔹 Propiedades
+> \* *Nota: En versiones modernas de Python, los diccionarios mantienen el orden en que se insertaron las claves.*
 
-| Propiedad | Valor |
-| :--- | :--- |
-| **¿Mutable?** | ✅ Sí |
-| **¿Ordenada?** | ✅ Sí |
-| **¿Duplicados?** | ✅ Sí |
-| **Acceso** | Índice numérico |
 
-### 🛠️ Operaciones Esenciales
 
-```python
-# Creación
-lista = [1, 2, 3]
-lista = list("hola")       # ['h','o','l','a']
-
-# Adición y Eliminación
-lista.append(5)            # agrega al final
-lista.insert(0, 99)        # inserta en índice dado
-lista.pop()                # elimina y retorna el ÚLTIMO
-lista.remove(5)            # elimina la PRIMERA ocurrencia del valor
-
-# Ordenamiento
-lista.sort()               # modifica la original
-nueva = sorted(lista)      # retorna NUEVA lista
-```
-
-> ⚠️ **Trampa clásica:** `.sort()` modifica la original y retorna `None`. `sorted()` no toca la original y retorna una nueva lista.
-
-### ✂️ Slicing y Copia
-
-```python
-t = [10, 20, 30, 40, 50]
-t[1:3]     # [20, 30] (del índice 1 al 2)
-t[::-1]    # [50, 40, 30, 20, 10] (invertir)
-
-# Copia Real (Evita que ambas apunten al mismo objeto)
-b = a.copy()    
-b = a[:]        
-```
-
------
-
-## 📦 Tuplas (Tuples)
-
-Las tuplas son colecciones **ordenadas pero inmutables**. Son más eficientes en memoria y protegen los datos de modificaciones accidentales.
-
-### 🔹 Propiedades
-
-| Propiedad | Valor |
-| :--- | :--- |
-| **¿Mutable?** | ❌ No |
-| **¿Ordenada?** | ✅ Sí |
-| **¿Duplicados?** | ✅ Sí |
-| **Casos de uso** | Coordenadas, configuraciones, retorno múltiple |
-
-### 🛠️ Características Únicas
-
-```python
-# Creación (la coma es obligatoria para un solo elemento)
-t = (1, 2, 3)
-solo_uno = (5,) 
-
-# Desestructuración: El superpoder de las tuplas
-punto = (10, 20)
-x, y = punto  # x=10, y=20
-
-# Swap de variables sin temporal
-a, b = b, a
-```
-
------
-
-## 🔤 Strings
-
-Un string es una cadena de texto **inmutable**. Cada operación de transformación crea un nuevo string en memoria.
-
-### 🔹 Métodos de Transformación y Búsqueda
-
-```python
-s = "hola mundo"
-
-s.upper()              # "HOLA MUNDO"
-s.capitalize()         # "Hola mundo"
-s.replace("h", "y")    # "yola mundo"
-"Mundo" in s           # True (búsqueda booleana)
-
-# Split y Join (Los más importantes)
-lista_palabras = "a,b,c".split(",")    # ["a", "b", "c"]
-unido = "-".join(["x", "y", "z"])      # "x-y-z"
-```
-
------
-
-## 🗂️ Diccionarios (Dictionaries)
-
-Almacenan información en formato **clave-valor**. Son mutables y ofrecen un acceso extremadamente rápido a los datos.
-
-### 🔹 Propiedades
-
-| Propiedad | Valor |
-| :--- | :--- |
-| **¿Mutable?** | ✅ Sí |
-| **¿Ordenado?** | ✅ Sí (Python 3.7+) |
-| **¿Duplicados?** | ❌ No (Claves únicas) |
-| **Acceso** | Por clave (no índice) |
-
-### 🛠️ Manejo de Datos
-
-```python
-d = {"nombre": "Luis", "edad": 25}
-
-# Acceso seguro con .get()
-d.get("altura", 1.70)  # Retorna 1.70 si no existe la clave
-
-# Iteración eficiente
-for clave, valor in d.items():
-    print(f"{clave}: {valor}")
-
-# Dict Comprehension
-cuadrados = {x: x**2 for x in range(5)}
-```
-
------
-
-## ⚖️ Diferencias Clave
-
-| Estructura | Ordenada | Mutable | Acceso | Uso Principal |
-| :--- | :--- | :--- | :--- | :--- |
-| **Lista** | Sí | Sí | Índice | Colecciones dinámicas |
-| **Tupla** | Sí | No | Índice | Datos constantes / Seguridad |
-| **String** | Sí | No | Índice | Procesamiento de texto |
-| **Diccionario**| Sí | Sí | Clave | Relación de datos (JSON-like) |
-
------
-
-## 💡 Patrones Comunes en Entrevistas Técnicas
-
-1.  **Contar ocurrencias (Frecuencia):**
-    ```python
-    conteo = {}
-    for x in lista:
-        conteo[x] = conteo.get(x, 0) + 1
-    ```
-2.  **Invertir una secuencia:** `s[::-1]`
-3.  **Filtrar datos (List Comprehension):**
-    ```python
-    pares = [x for x in range(10) if x % 2 == 0]
-    ```
-4.  **Comparar elementos adyacentes:**
-    ```python
-    for i in range(len(lista) - 1):
-        if lista[i] == lista[i+1]: # Detectar duplicados seguidos
-            ...
-    ```
-
------
-
+---
+**Conclusión:** La clave del éxito en Python es saber qué herramienta sacar de la caja: **listas** para flexibilidad, **tuplas** para seguridad, **diccionarios** para relaciones rápidas y **strings** para comunicación.
