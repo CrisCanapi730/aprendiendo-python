@@ -44,3 +44,16 @@ print(l)
 print(t + (4,5))
 print(t*2)
 print(2 in t)
+
+coordenadas = (5,45)
+x, y = coordenadas
+print(x)
+print(type(x))
+
+pares = [(1, "a"), (2, "b"), (3, "c")]
+for numero, letra in pares:
+    print(numero, letra)
+
+# Swap de variables — clásico de entrevistas
+a, b = 5, 10
+a, b = b, a  
