@@ -1,9 +1,3 @@
-¡Claro que sí\! He fusionado ambos archivos para crear una **Guía Maestra definitiva**. He mantenido la profundidad técnica y los ejemplos de código del primer documento, integrando la estructura organizada, las introducciones teóricas y el tono profesional del segundo.
-
-Aquí tienes el resultado listo para tu `README.md`:
-
------
-
 # 📚 Guía Maestra de Estructuras de Datos en Python
 
 ### Teoría y práctica de Listas, Tuplas, Strings y Diccionarios — De cero a experto.
@@ -185,4 +179,3 @@ cuadrados = {x: x**2 for x in range(5)}
 
 -----
 
-Guía unificada para práctica de bootcamp — **Semana Intensiva de Python** 🚀
