@@ -1,13 +1,20 @@
 def comprimir(s):
-    letras = ""
+    letra = None
     cadena = ""
-    for c in s:
+    tam = len(s)
+    i=0
+    while(i<tam):
         contador = 0
-        i = 0
-        while(s[i] == c):
-            contador+=1
-            i+=1
-            
-        cadena = cadena + c + str(contador)
+        letra = s[i]
+        j = i
+        while(j<tam):
+            if s[j] == letra:
+                contador+=1
+            else:
+                break
+            j+=1
+        cadena = cadena + letra + str(contador)
+        i = i + contador
     return cadena
-print(comprimir("aabbccc"))
+
+print(comprimir("aabbbabcc"))
